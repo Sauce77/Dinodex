@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
-class Rol(models.Model):
+class Perfil(models.Model):
     """
         Utilizado para asignar los privilegios de cada
         usuario.
