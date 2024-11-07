@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 from django.contrib.auth.models import User
+from .models import Perfil
 
 
 class LoginForm(AuthenticationForm):
@@ -21,3 +22,18 @@ class RegistroForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email')
+
+
+class PerfilForm(forms.ModelForm):
+    """
+        Utilizado para poder determinar el perfil de registro
+        de usuario en userMenuRegistro. Los campos no pueden ser 
+        editados.
+    """
+    class Meta:
+        model = Perfil
+        fields = ['nombre', 'descripcion']
+        widgets = {
+            'nombre': forms.TextInput(attrs={'readonly': True}),
+            'descripcion': forms.TextInput(attrs={'readonly': True}),
+        }

@@ -5,7 +5,9 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.models import User
-from .forms import LoginForm, RegistroForm
+from .forms import LoginForm, RegistroForm, PerfilForm
+
+from .models import Perfil
 # Create your views here.
 
 
@@ -28,7 +30,7 @@ def userRegistro(request):
             return redirect('userLogin')
     else:
         form = RegistroForm()
-    return render(request, 'registro.html', {'form': form})
+    return render(request, 'userRegistro.html', {'form': form})
 
 
 def userLogin(request):
@@ -53,7 +55,7 @@ def userLogin(request):
                 return redirect('userSuccess')
     else:
         form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'userLogin.html', {'form': form})
 
 
 def userLogout(request):
@@ -62,3 +64,22 @@ def userLogout(request):
     """
     logout(request)
     return redirect('userLogin')
+
+
+def userMenuPerfiles(request):
+    """
+        Utilizado para mostrar los perfiles visibles
+        para registrarse.
+    """
+    # obtenemos los perfiles visibles de la base de datos
+    obj_perfil_visible = Perfil.objects.filter(visible=True)
+    # variable para guardar los forms de perfiles visibles
+    list_forms = []
+
+    # para cada perfil en perfiles visibles
+    for obj_perfil in obj_perfil_visible:
+        # creamos un formulario con el valor inicial del perfil
+        formulario = PerfilForm(initial={'nombre': obj_perfil.nombre})
+        list_forms.append(formulario)
+
+    return render(request, 'userMenuPerfiles.html', {'forms': list_forms})
