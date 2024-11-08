@@ -27,6 +27,13 @@ def userRegistro(request):
         form = RegistroForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
+            # Recupera los datos de la sesión usando la clave "form_data"
+            # Si no está presente, devolverá un diccionario vacío
+            data = request.session.get("form_", {})
+
+            # Opcional: Limpia los datos después de usarlos si no los necesitas más
+            # Elimina "form_data" de la sesión
+            request.session.pop("form_data", None)
             return redirect('userLogin')
     else:
         form = RegistroForm()
@@ -71,6 +78,16 @@ def userMenuPerfiles(request):
         Utilizado para mostrar los perfiles visibles
         para registrarse.
     """
+    # se recibe una peticion POST
+    if request.method == 'POST':
+        # agregamos los campo en la sesion
+        request.session["form_perfil"] = request.POST.dict()
+        return redirect('userRegistro')
+
+    # --------------------------------------------------------------
+    # En caso de no contar con POST, renderizar los forms de perfil
+    # --------------------------------------------------------------
+
     # obtenemos los perfiles visibles de la base de datos
     obj_perfil_visible = Perfil.objects.filter(visible=True)
     # variable para guardar los forms de perfiles visibles
@@ -79,7 +96,11 @@ def userMenuPerfiles(request):
     # para cada perfil en perfiles visibles
     for obj_perfil in obj_perfil_visible:
         # creamos un formulario con el valor inicial del perfil
-        formulario = PerfilForm(initial={'nombre': obj_perfil.nombre})
+        formulario = PerfilForm(
+            initial={'nombre': obj_perfil.nombre,
+                     'descripcion': obj_perfil.descripcion,
+                     'id_perfil': obj_perfil.id_perfil
+                     })
+        # agregamos el form a la lista de formularios
         list_forms.append(formulario)
-
     return render(request, 'userMenuPerfiles.html', {'forms': list_forms})
