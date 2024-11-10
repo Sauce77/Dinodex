@@ -16,7 +16,9 @@ def userSuccess(request):
     """
         Solo prueba.
     """
-    return render(request, 'example.html', {'usuario': request.user})
+    usuario = request.user
+    obj_perfiles = Perfil.usuarios.filter(usuario=usuario)
+    return render(request, 'example.html', {'usuario': request.user, 'perfiles': obj_perfiles})
 
 
 def userRegistro(request):

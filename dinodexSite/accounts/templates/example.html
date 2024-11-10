@@ -6,8 +6,11 @@
     <title>Test</title>
 </head>
 <body>
-    <h1>Bienvenido, {{ usuario.last_name }} !</h1>
-    <p>Has iniciado sesión</p>
+    <h1>Bienvenido, {{ usuario.user }} !</h1>
+    <p>Perfiles disponibles</p>
+    {{% for perfil in perfiles %}}
+        <p>{{ perfil.nombre }}</p>
+    {{% endfor %}}  
     <a href="{% url 'userLogout' %}">Cerrar sesion</a>
 </body>
 </html>

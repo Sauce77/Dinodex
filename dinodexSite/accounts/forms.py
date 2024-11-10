@@ -40,6 +40,6 @@ class PerfilForm(forms.ModelForm):
         }
         widgets = {
             'id_perfil': forms.HiddenInput(),
-            'nombre': forms.TextInput(attrs={'readonly': True}),
-            'descripcion': forms.TextInput(attrs={'readonly': True})
+            'nombre': forms.TextInput(attrs={'readonly': True, 'class': ' formPerfil'}),
+            'descripcion': forms.TextInput(attrs={'readonly': True, 'class': ' formPerfil'})
         }
