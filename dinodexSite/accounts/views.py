@@ -29,11 +29,17 @@ def userRegistro(request):
             user = form.save()
             # Recupera los datos de la sesión usando la clave "form_data"
             # Si no está presente, devolverá un diccionario vacío
-            data = request.session.get("form_", {})
+            form_perfil = request.session.get("form_perfil", {})
+
+            print(form_perfil['nombre'])
+            # obtenemos el  perfil elegido
+            obj_perfil = Perfil.objects.get(nombre=form_perfil['nombre'])
+            # asignamos el perfil al usuario registrado
+            obj_perfil.usuario.add(user)
 
             # Opcional: Limpia los datos después de usarlos si no los necesitas más
             # Elimina "form_data" de la sesión
-            request.session.pop("form_data", None)
+            request.session.pop("form_perfil", None)
             return redirect('userLogin')
     else:
         form = RegistroForm()
@@ -92,15 +98,14 @@ def userMenuPerfiles(request):
     obj_perfil_visible = Perfil.objects.filter(visible=True)
     # variable para guardar los forms de perfiles visibles
     list_forms = []
-
     # para cada perfil en perfiles visibles
     for obj_perfil in obj_perfil_visible:
         # creamos un formulario con el valor inicial del perfil
         formulario = PerfilForm(
-            initial={'nombre': obj_perfil.nombre,
-                     'descripcion': obj_perfil.descripcion,
-                     'id_perfil': obj_perfil.id_perfil
-                     })
+            initial={
+                'nombre': obj_perfil.nombre,
+                'descripcion': obj_perfil.descripcion})
         # agregamos el form a la lista de formularios
         list_forms.append(formulario)
+
     return render(request, 'userMenuPerfiles.html', {'forms': list_forms})
