@@ -9,4 +9,5 @@ def userCatalogo(response):
         Muestra todos los dinosaurios de la base
         de datos.
     """
-    return HttpResponse("Muchos dinosaurios")
+    usuario = response.user
+    return render(response, 'userCatalogoDino.html', {'usuario': usuario})
