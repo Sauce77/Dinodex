@@ -1,11 +1,35 @@
-<nav>
-    <ul>
-        <li><a href="{% url 'userCatalogo' %}">Inicio</a></li>
-        {% if usuario.is_authenticated %}
-            <li>{{ usuario.username }}</li>
-            <li><a href="{% url 'userLogout' %}">Cerrar Sesion</a></li>
-        {% else %}
-            <li><a href="{% url 'userLogin' %}">Iniciar Sesion</a></li>
-        {% endif %}
-    </ul>
-</nav>
+<!-- Barra de navegacion -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'userCatalogo' %}">Dinodex</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <!-- Logo a inicio -->
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'userCatalogo' %}">Home</a>
+          </li>
+          {% if usuario.is_authenticated %}
+          <!-- Si el usuario inicio sesion -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ usuario.username }} <!-- Nombre de usuario -->
+                </a>
+                <ul class="dropdown-menu">
+                    <!-- Cerrar sesion -->
+                    <li class="nav-item"><a class="nav-link bg-danger text-light" href="{% url 'userLogout' %}">Cerrar Sesion</a></li>
+                </ul>
+            </li>
+          {% else %}
+          <!-- Si el usuario no ha iniciado sesion -->
+            <li class="nav-item">
+                <!-- Vista iniciar sesion-->
+                <a class="nav-link" href="{% url 'userLogin' %}">Iniciar sesion</a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
