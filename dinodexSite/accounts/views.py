@@ -67,7 +67,7 @@ def userLogin(request):
             if user is not None:
                 # iniciar sesion con el usaurio
                 login(request, user)
-                return redirect('userSuccess')
+                return redirect('userCatalogo')
     else:
         form = LoginForm()
     return render(request, 'userLogin.html', {'form': form})
