@@ -1,6 +1,6 @@
 <nav>
     <ul>
-        <li><a href="{% url 'userCatalogoDino' %}">Inicio</a></li>
+        <li><a href="{% url 'userCatalogo' %}">Inicio</a></li>
         {% if usuario.is_authenticated %}
             <li>{{ usuario.username }}</li>
             <li><a href="{% url 'userLogout' %}">Cerrar Sesion</a></li>
