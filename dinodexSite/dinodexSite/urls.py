@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
     path('explora/', include('dinoteca.urls')),
+    path('editor/', include('editor.urls')),
 ]

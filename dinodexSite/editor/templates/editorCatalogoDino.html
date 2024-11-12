@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar</title>
+    {% include '_bootstrap.html' %}
+</head>
+<body>
+    {% include '_navbar.html' %}
+    <div class="container">
+        <h1>Bienvenido, {{usuario.first_name}}</h1>
+        
+        {% for dino in dinosaurios %}
+            {% if forloop.counter0|divisibleby:3 %}
+                <div class="row">
+            {% endif %}
+
+            <div class="col lg-3">
+                <img src="{{ dino.imagen.url }}" alt="">
+                <form method="post">
+                    {{ dino.form_id.id_dinosauario }}
+
+                    {{ dino.nombre }}
+                    <button type="submit" class="btn btn-primary">Editar</button>
+                </form>
+            </div>
+
+            {% if forloop.counter0|divisibleby:3 %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>
