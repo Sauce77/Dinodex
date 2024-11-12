@@ -21,7 +21,7 @@ class Alimentacion(models.Model):
     id_alimentacionm = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=200)
-    imagen = models.ImageField(upload_to='source/alimento/')
+    imagen = models.ImageField(null=True, blank=True, upload_to='alimento/')
 
     def __str__(self):
         return self.nombre
@@ -34,9 +34,9 @@ class Dinosaurio(models.Model):
     id_dinosaurio = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=150)
     tamano = models.FloatField()
-    imagen = models.ImageField(upload_to="source/dinosaurio")
+    imagen = models.ImageField(null=True, blank=True, upload_to="dinosaurio/")
     descripcion = models.CharField(max_length=500)
-    audio_rugido = models.FileField(upload_to="source/rugido")
+    audio_rugido = models.FileField(upload_to="rugido/")
     alimenatacion = models.ForeignKey(
         Alimentacion, on_delete=models.DO_NOTHING)
     periodo = models.ForeignKey(Periodo, on_delete=models.DO_NOTHING)

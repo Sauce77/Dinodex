@@ -73,8 +73,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dinodexSite.wsgi.application'
 
-MEDIA_URL = '/'
+STATIC_URL = '/source/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'source')
+STATICFILES_DIR = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
