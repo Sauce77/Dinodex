@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 
 # Create your views here.
 from dinoteca.models import Dinosaurio
@@ -15,6 +15,21 @@ def editorCatalogo(response):
         puede selccionar uno y editar. Tambien puede
         borrar y anadir nuevos.
     """
+    if response.method == 'POST':
+        # si se recibe peticion POST
+        boton_editar = response.POST.get('editar')
+        boton_eliminar = response.POST.get('eliminar')
+
+        if boton_editar == 'Editar':
+            # si el valor es Editar
+            return redirect('editorInicio')
+        if boton_eliminar == 'Eliminar':
+            # si el valor es Eliminar
+            return HttpResponse("Borra eso William")
+        else:
+            # en caso de que no
+            return HttpResponse('Ha sucedido un error')
+
     # obtenemos todos los dinosaurios
     obj_dinosaurio = Dinosaurio.objects.all()
 

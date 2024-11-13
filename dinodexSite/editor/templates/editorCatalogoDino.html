@@ -16,13 +16,19 @@
                 <div class="row">
             {% endif %}
 
-            <div class="col lg-3 bg-secondary">
-                <form method="post">
-                    {{ dino.form_id.id_dinosauario }}
-                    {{ dino.nombre }}
-                    <button type="submit" class="btn btn-primary">Editar</button>
-                </form>
-                <img src="{{ dino.imagen.url }}" alt="{{ dino.nombre }}">
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img class ="img-fluid" src="{{ dino.imagen.url }}" alt="{{ dino.nombre }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-center">{{ dino.nombre }}</h5>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ dino.form_id.id_dinosauario }}
+                            <button type="submit" name="editar" value="Editar" class="btn btn-primary">Editar</button>
+                            <button type="submit" name="eliminar" value="Eliminar" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </div><!-- Fin card -->
             </div>
 
             {% if forloop.counter0|divisibleby:3 %}
