@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 
 # Create your views here.
 from dinoteca.models import Dinosaurio
-from .forms import FormDinosaurio
+from .forms import FormEditarDinosaurio
 
 
 def editorInicio(response):
@@ -22,9 +22,14 @@ def editorCatalogo(response):
 
         if boton_editar == 'Editar':
             # si el valor es Editar
-            return redirect('editorInicio')
+            id_dino = response.POST.get('id_dinosaurio')
+            print("editar ID:", id_dino)
+            response.session['id_dino'] = id_dino
+            return redirect('editorEditaDino')
         if boton_eliminar == 'Eliminar':
             # si el valor es Eliminar
+            id_dino = response.POST.get('id_dinosaurio')
+            print("eliminar ID:", id_dino)
             return HttpResponse("Borra eso William")
         else:
             # en caso de que no
@@ -38,7 +43,7 @@ def editorCatalogo(response):
     for objeto in obj_dinosaurio:
         # para cada dinosaurio
         # se obtiene el id del dinosaurio
-        formulario = FormDinosaurio(
+        formulario = FormEditarDinosaurio(
             initial={'id_dinosaurio': objeto.id_dinosaurio})
         # obtenemos el nombre del dinosaurio
         nombre = objeto.nombre
@@ -48,3 +53,14 @@ def editorCatalogo(response):
         list_info_dino.append(
             {'form_id': formulario, 'nombre': nombre, 'imagen': imagen})
     return render(response, 'editorCatalogoDino.html', {'dinosaurios': list_info_dino, 'usuario': response.user})
+
+
+def editorEditaDino(response):
+    """
+        Vista utilizada para modificar un registro de dinosaurio en
+        especifico.
+    """
+    pk = response.session.get('editar_id_dino')
+    obj_dino = Dinosaurio.objects.get(pk=pk)
+    form = FormEditarDinosaurio(instance=obj_dino)
+    return render(response, 'editorEditaDino.html', {'form': form, 'usuario': response.user})

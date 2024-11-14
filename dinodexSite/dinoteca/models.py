@@ -4,6 +4,9 @@ from django.db import models
 
 
 class Periodo(models.Model):
+    """
+        Identifica los diferentes periodos de la prehistoria.
+    """
     id_periodo = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=500)

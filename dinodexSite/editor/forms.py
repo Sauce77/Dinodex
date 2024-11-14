@@ -3,12 +3,11 @@ from django import forms
 from dinoteca.models import Dinosaurio
 
 
-class FormDinosaurio(forms.ModelForm):
+class FormEditarDinosaurio(forms.ModelForm):
     """
-        Se utiliza para enviar la informacion de dinosaurios
-        en el editor.
+        Utilizado para modificar los campos de un dinosaurio
+        desde la vista editorEditaDino.
     """
     class Meta:
         model = Dinosaurio
-        fields = ['id_dinosaurio']
-        widgets = {'id_dinosaurio': forms.HiddenInput()}
+        fields = "__all__"

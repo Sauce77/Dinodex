@@ -23,7 +23,7 @@
                         <h5 class="card-title text-center">{{ dino.nombre }}</h5>
                         <form method="post">
                             {% csrf_token %}
-                            {{ dino.form_id.id_dinosauario }}
+                            {{ dino.form_id.id_dinosaurio }}
                             <button type="submit" name="editar" value="Editar" class="btn btn-primary">Editar</button>
                             <button type="submit" name="eliminar" value="Eliminar" class="btn btn-danger">Eliminar</button>
                         </form>
