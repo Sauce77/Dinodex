@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 
 # Create your views here.
 from dinoteca.models import Dinosaurio
-from .forms import FormEditarDinosaurio
+from .forms import FormEditarDinosaurio, FormEditarCatalogo
 
 
 def editorInicio(response):
@@ -22,15 +22,16 @@ def editorCatalogo(response):
 
         if boton_editar == 'Editar':
             # si el valor es Editar
-            id_dino = response.POST.get('id_dinosaurio')
-            print("editar ID:", id_dino)
-            response.session['id_dino'] = id_dino
-            return redirect('editorEditaDino')
+            nombre = response.POST.get('nombre')
+            print("editar:", nombre)
+            response.session['nombre_editar'] = nombre
+            return redirect('editorEditarDino')
         if boton_eliminar == 'Eliminar':
             # si el valor es Eliminar
-            id_dino = response.POST.get('id_dinosaurio')
-            print("eliminar ID:", id_dino)
-            return HttpResponse("Borra eso William")
+            nombre = response.POST.get('nombre')
+            print("eliminar:", nombre)
+            response.session['nombre_eliminar'] = nombre
+            return redirect('editorEliminarDino')
         else:
             # en caso de que no
             return HttpResponse('Ha sucedido un error')
@@ -43,24 +44,59 @@ def editorCatalogo(response):
     for objeto in obj_dinosaurio:
         # para cada dinosaurio
         # se obtiene el id del dinosaurio
-        formulario = FormEditarDinosaurio(
-            initial={'id_dinosaurio': objeto.id_dinosaurio})
-        # obtenemos el nombre del dinosaurio
-        nombre = objeto.nombre
+        formulario = FormEditarCatalogo(
+            initial={'nombre': objeto.nombre})
         # obtenemos la imagen del dinosaurio
         imagen = objeto.imagen
         # lo agregamos a la lista info
         list_info_dino.append(
-            {'form_id': formulario, 'nombre': nombre, 'imagen': imagen})
+            {'form': formulario, 'imagen': imagen})
     return render(response, 'editorCatalogoDino.html', {'dinosaurios': list_info_dino, 'usuario': response.user})
 
 
-def editorEditaDino(response):
+def editorEditarDino(response):
     """
         Vista utilizada para modificar un registro de dinosaurio en
         especifico.
     """
-    pk = response.session.get('editar_id_dino')
-    obj_dino = Dinosaurio.objects.get(pk=pk)
-    form = FormEditarDinosaurio(instance=obj_dino)
-    return render(response, 'editorEditaDino.html', {'form': form, 'usuario': response.user})
+    # se obtiene el nombre del registro a editar
+    nombre = response.session.get('nombre_editar')
+    # se obtiene el objeto a editar
+    obj_dino = Dinosaurio.objects.get(nombre=nombre)
+
+    if response.method == "POST":
+        # en caso de que tenga peticion post
+        form = FormEditarDinosaurio(response.POST, instance=obj_dino)
+        if form.is_valid():
+            form.save()
+            return redirect("editorCatalogo")
+    else:
+        # se realiza un form con la informacion del objeto
+        form = FormEditarDinosaurio(instance=obj_dino)
+    return render(response, 'editorEditarDino.html', {'form': form, 'usuario': response.user})
+
+
+def editorEliminarDino(response):
+    """
+        Borra el registro elegido por medio de la sesion.
+    """
+    # obtenemos el nombre
+    nombre = response.session.get('nombre_eliminar')
+    obj_dino = Dinosaurio.objects.get(nombre=nombre)
+    obj_dino.delete()
+    return redirect('editorCatalogo')
+
+
+def editorAgregarDino(response):
+    """
+        Agrega un registro de dinosaurios.
+    """
+    if response.method == "POST":
+        # en caso de que tenga peticion post
+        form = FormEditarDinosaurio(response.POST, response.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect("editorCatalogo")
+    else:
+        form = FormEditarDinosaurio()
+    return render(response, 'editorEditarDino.html', {'form': form, 'usuario': response.user})

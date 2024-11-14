@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -8,7 +10,7 @@ class Periodo(models.Model):
         Identifica los diferentes periodos de la prehistoria.
     """
     id_periodo = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(unique=True, max_length=50)
     descripcion = models.CharField(max_length=500)
     inicio = models.FloatField()
     fin = models.FloatField()
@@ -22,7 +24,7 @@ class Alimentacion(models.Model):
         Detalla la alimentacion de un dinosaurio.
     """
     id_alimentacionm = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(unique=True, max_length=50)
     descripcion = models.CharField(max_length=200)
     imagen = models.ImageField(null=True, blank=True, upload_to='alimento/')
 
@@ -35,7 +37,7 @@ class Dinosaurio(models.Model):
         Almacena la informacion de los dinosaurios.
     """
     id_dinosaurio = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=150)
+    nombre = models.CharField(unique=True, max_length=150)
     tamano = models.FloatField()
     imagen = models.ImageField(null=True, blank=True, upload_to="dinosaurio/")
     descripcion = models.CharField(max_length=500)
@@ -46,3 +48,9 @@ class Dinosaurio(models.Model):
 
     def __str__(self):
         return self.nombre
+
+
+@receiver(post_delete, sender=Dinosaurio)
+def eliminar_imagen_producto(sender, instance, **kwargs):
+    if instance.imagen:
+        instance.imagen.delete(False)

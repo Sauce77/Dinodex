@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar</title>
+    <title>Editor</title>
     {% include '_bootstrap.html' %}
 </head>
 <body>
     {% include '_navbar.html' %}
     <div class="container">
-        <div class="row m-2">
-            <h1>Bienvenido, {{usuario.first_name}}</h1>
-            <a href="{% url 'editorAgregarDino' %}" class="btn btn-primary" style="width: 10%;">Agregar</a>
-        </div>
-        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="aceptar" value="Aceptar" class="btn btn-primary">Aceptar</button>
+        </form>
         
     </div>
 </body>
