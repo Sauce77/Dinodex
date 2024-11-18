@@ -40,6 +40,7 @@ class Dinosaurio(models.Model):
     nombre = models.CharField(unique=True, max_length=150)
     tamano = models.FloatField()
     imagen = models.ImageField(null=True, blank=True, upload_to="dinosaurio/")
+    modelo3D = models.FileField(null=True, blank=True, upload_to="modelos/")
     descripcion = models.CharField(max_length=500)
     audio_rugido = models.FileField(upload_to="rugido/")
     alimentacion = models.ForeignKey(
@@ -54,3 +55,7 @@ class Dinosaurio(models.Model):
 def eliminar_imagen_producto(sender, instance, **kwargs):
     if instance.imagen:
         instance.imagen.delete(False)
+    if instance.modelo3D:
+        instance.modelo3D.delete(False)
+    if instance.audio_rugido:
+        instance.audio_rugido

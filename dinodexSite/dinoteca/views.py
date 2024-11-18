@@ -51,6 +51,5 @@ def userMirarDino(response):
     """
     nombre_dino = response.session.get('nombre_dino')
     obj_dino = Dinosaurio.objects.get(nombre=nombre_dino)
-    obj_alimento = obj_dino.alimenatacion
 
-    return render(response, 'userMirarDino.html', {'dinosaurio': obj_dino, 'alimento': obj_alimento, 'usuario': response.user})
+    return render(response, 'userMirarDino.html', {'dinosaurio': obj_dino, 'usuario': response.user})

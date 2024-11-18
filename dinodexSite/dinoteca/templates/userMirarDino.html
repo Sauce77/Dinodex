@@ -23,17 +23,25 @@
                     </div>
                 </div>
                 <div class="row">
+
                     <div class="col">
-                        <button>Rugido</button>
+                        <button class="btn btn-primary">Rugido</button>
                     </div>
+
                     <div class="col">
-                        <div class="card" style="width: 18rem;">
-                            <img src="{{ alimento.imagen.url }}" class="card-img-top" alt="No image">
+                        <div class="card" style="width: 10rem;">
+                            <img src="{{ dinosaurio.alimentacion.imagen.url }}" class="card-img-top" alt="No image">
                             <div class="card-body">
-                              <p class="card-text">{{ alimento.descripcion }}</p>
+                                <h5>{{ dinosaurio.alimentacion.nombre }}</h5>
+                                <p class="card-text">{{ dinosaurio.alimento.descripcion }}</p>
                             </div>
                           </div>
                     </div>
+
+                    <div class="col">
+                        <button class="btn btn-primary">Escuchar</button>
+                    </div>
+
                 </div>
             </div>
         </div>
