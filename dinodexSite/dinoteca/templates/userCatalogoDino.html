@@ -9,6 +9,30 @@
 <body>
     
     {% include '_navbar.html' %}
-    <h1>¡Conoce un dinosaurio!</h1>
+
+    <div class="container">
+        <div class="row m-2">
+            <h1>¡Conoce un dinosaurio!</h1>
+        </div>
+        
+        {% for fila in dinosaurios %}
+            <div class="row">
+                {% for dino in fila %}
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ dino.imagen.url }}" class="card-img-top img-fluid" alt="No image">
+                            <div class="card-body">
+                              <form method="post" class="text-center">
+                                {% csrf_token %}
+                                {{ dino.form.nombre }}
+                                <button type="submit" class="btn btn-primary" name="mirar" value="Mirar">Mirar</button>
+                              </form>
+                            </div>
+                          </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 </body>
 </html>

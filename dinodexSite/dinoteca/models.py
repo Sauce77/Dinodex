@@ -23,7 +23,7 @@ class Alimentacion(models.Model):
     """
         Detalla la alimentacion de un dinosaurio.
     """
-    id_alimentacionm = models.AutoField(primary_key=True)
+    id_alimentacion = models.AutoField(primary_key=True)
     nombre = models.CharField(unique=True, max_length=50)
     descripcion = models.CharField(max_length=200)
     imagen = models.ImageField(null=True, blank=True, upload_to='alimento/')
@@ -42,7 +42,7 @@ class Dinosaurio(models.Model):
     imagen = models.ImageField(null=True, blank=True, upload_to="dinosaurio/")
     descripcion = models.CharField(max_length=500)
     audio_rugido = models.FileField(upload_to="rugido/")
-    alimenatacion = models.ForeignKey(
+    alimentacion = models.ForeignKey(
         Alimentacion, on_delete=models.DO_NOTHING)
     periodo = models.ForeignKey(Periodo, on_delete=models.DO_NOTHING)
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinosaurio</title>
+    {% include '_bootstrap.html' %}
+</head>
+<body>
+    {% include '_navbar.html' %}
+    <div class="container">
+        <div class="row">
+            <h1>{{ dinosaurio.nombre }}</h1>
+        </div>
+        <div class="row">
+            <div class="col p-2 m-1">
+                <img src="{{ dinosaurio.imagen.url }}" class="img-fluid" alt="No image">
+            </div>
+            <div class="col p-2 m-2">
+                <div class="row">
+                    <div class="col">
+                        <p>{{ dinosaurio.descripcion }}</p>    
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button>Rugido</button>
+                    </div>
+                    <div class="col">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ alimento.imagen.url }}" class="card-img-top" alt="No image">
+                            <div class="card-body">
+                              <p class="card-text">{{ alimento.descripcion }}</p>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
