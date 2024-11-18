@@ -41,7 +41,8 @@ def editorCatalogo(response):
 
     # realizamos un form para cada dinosaurio
     list_info_dino = []
-    for objeto in obj_dinosaurio:
+    list_filas = []
+    for index, objeto in enumerate(obj_dinosaurio):
         # para cada dinosaurio
         # se obtiene el id del dinosaurio
         formulario = FormEditarCatalogo(
@@ -49,8 +50,12 @@ def editorCatalogo(response):
         # obtenemos la imagen del dinosaurio
         imagen = objeto.imagen
         # lo agregamos a la lista info
-        list_info_dino.append(
+        list_filas.append(
             {'form': formulario, 'imagen': imagen})
+        # agrupamos en tres
+        if index % 3 == 2 or index == obj_dinosaurio.count() - 1:
+            list_info_dino.append(list_filas)
+            list_filas = []
     return render(response, 'editorCatalogoDino.html', {'dinosaurios': list_info_dino, 'usuario': response.user})
 
 
