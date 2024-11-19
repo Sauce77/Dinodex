@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+body {
+    background-color: #EDEDB8;
+    overflow: hidden; /* Evita que la página se desplace durante la animación */
+}
+
+.userMenuPerfiles1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    transition: transform 1s ease, opacity 1s ease;
+}
+
+.userMenuPerfiles1.shrink {
+    transform: translateY(-30%) scale(0.5); /* Reduce el tamaño y mueve hacia arriba */
+    pointer-events: none; /* Desactiva interacciones al desaparecer */
+}
+
+#startButton {
+    font-family: 'Bungee', sans-serif;
+    display: flex;
+    align-items: center;
+    background-color: #FEDC31;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-size: 2.5em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#startButton:hover {
+    background-color: #FEDC32;
+    transform: translateY(-2px);
+}
+
+.arrow {
+    margin-left: 8px;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+#startButton:hover .arrow {
+    transform: translateX(5px);
+}
+
+.userMenuPerfiles2 {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0; /* Oculta inicialmente */
+    z-index: 5; /* Detrás de la primera pantalla */
+    transition: opacity 1s ease;
+    pointer-events: none; /* Evita interacciones al estar oculta */
+}
+
+.userMenuPerfiles2.show {
+    display: flex; /* Muestra la pantalla con flex */
+    opacity: 1; /* Aparece gradualmente */
+    z-index: 10; /* Trae la pantalla al frente */
+    pointer-events: auto; /* Activa interacciones */
+}
+
+.userMenuPerfiles2 h1 {
+    font-family: 'Bungee', sans-serif;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.profile-option {
+    font-family: 'Bungee', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    background-color: #FEDC31;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.profile-option:hover {
+    background-color: #FEDC32;
+    transform: translateY(-3px);
+}
+
+.img-fluid {
+    max-width: 80%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.img-fluid:hover {
+    transform: scale(1.05);
+}

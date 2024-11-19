@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+body {
+    background-color: #EDEDB8;
+    font-family: ';
+}
+
+.logo {
+    max-width: 150px;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+}
+
+.card h3 {
+    font-size: 2em;
+    font-family: 'Bungee', sans-serif;
+}
+
+.btn-primary {
+    background-color: #0090FF;
+    border-color: #0090FF;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #0070cc;
+    border-color: #0070cc;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+a:hover {
+    text-decoration: underline;
+}

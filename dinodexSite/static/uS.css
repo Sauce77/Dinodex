@@ -1,0 +1,44 @@
+body {
+    background-color: #EDEDB8;
+    font-family: 'Arial', sans-serif;
+}
+
+.card {
+    background-color: #FFF; /* Fondo blanco para la tarjeta */
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    max-width: 150px;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #0090FF;
+    border-color: #0090FF;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: #0070cc;
+    border-color: #0070cc;
+}
+
+.arrow {
+    margin-left: 8px;
+    font-size: 18px;
+}
+
+.btn-dark {
+    background-color: #333;
+    border-color: #333;
+    color: white;
+}
+
+.btn-dark:hover {
+    background-color: #555;
+    border-color: #555;
+}
