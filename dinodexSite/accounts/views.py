@@ -54,23 +54,44 @@ def userLogin(request):
         la sesion del usuario.
     """
     if request.method == 'POST':
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            # Obtener los datos del formulario
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+        # obtener boton login
+        btn_iniciar = request.POST.get('iniciar')
+        # obtener boton registrar
+        btn_registarse = request.POST.get('registrar')
 
-            # Autenticar al usuario
-            user = authenticate(username=username, password=password)
+        if btn_iniciar == "Iniciar":
+            form = LoginForm(request, data=request.POST)
+            if form.is_valid():
+                # Obtener los datos del formulario
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
 
-            # si se encuentra al usuario
-            if user is not None:
-                # iniciar sesion con el usaurio
-                login(request, user)
-                return redirect('userCatalogo')
+                # Autenticar al usuario
+                user = authenticate(username=username, password=password)
+
+                # si se encuentra al usuario
+                if user is not None:
+                    # iniciar sesion con el usaurio
+                    login(request, user)
+                    return redirect('userCatalogo')
+        if btn_registarse == 'Registrar':
+            # se pulso registar
+            # agregamos los campo en la sesion
+            request.session["form_perfil"] = request.POST.dict()
+            return redirect('userRegistro')
     else:
         form = LoginForm()
-    return render(request, 'userLogin.html', {'form': form})
+        perfiles = Perfil.objects.filter(visible=True)
+
+        # guardamos los forms para cada perfil
+        form_perfiles = []
+        for obj_perfil in perfiles:
+            # para cada perfil visible
+            # usamos un model form con la info del objeto
+            formulario = PerfilForm(instance=obj_perfil)
+            # agregamos el form a la lista
+            form_perfiles.append(formulario)
+        return render(request, 'userLogin.html', {'form': form, 'perfiles': form_perfiles})
 
 
 def userLogout(request):
@@ -99,15 +120,12 @@ def userMenuPerfiles(request):
     # obtenemos los perfiles visibles de la base de datos
     obj_perfil_visible = Perfil.objects.filter(visible=True)
     # variable para guardar los forms de perfiles visibles
-    list_forms = []
+    perfiles = []
     # para cada perfil en perfiles visibles
     for obj_perfil in obj_perfil_visible:
         # creamos un formulario con el valor inicial del perfil
-        formulario = PerfilForm(
-            initial={
-                'nombre': obj_perfil.nombre,
-                'descripcion': obj_perfil.descripcion})
-        # agregamos el form a la lista de formularios
-        list_forms.append(formulario)
+        formulario = PerfilForm(instance=obj_perfil)
+        # agregamos el form al diccionario de formularios
+        perfiles.append({'form': formulario, 'imagen': obj_perfil.imagen})
 
-    return render(request, 'userMenuPerfiles.html', {'forms': list_forms})
+    return render(request, 'userMenuPerfiles.html', {'perfiles': perfiles})

@@ -50,28 +50,27 @@
     <h1 class="text-center mb-4">Selecciona tu Perfil</h1>
     <div class="container">
         <div class="row">
-            <!-- Columna 1 -->
-            <div class="col-md-4 text-center">
-                <img src="{% static 'alumno.png' %}" alt="Perfil 1" class="img-fluid mb-3">
-                <button class="btn btn-primary profile-option">Alumno 
-                    <span class="arrow">→</span>
-                </button>
-                
-            </div>
-            <!-- Columna 2 -->
-            <div class="col-md-4 text-center">
+            <div class="col text-center">
                 <img src="{% static 'explora.png' %}" alt="Perfil 2" class="img-fluid mb-3">
-                <button class="btn btn-primary profile-option">Explora!
+                <a href="{% url 'userCatalogo' %}" class="btn btn-primary profile-option">
+                    Explora!
                     <span class="arrow">→</span>
-                </button>
+                </a>
             </div>
-            <!-- Columna 3 -->
-            <div class="col-md-4 text-center">
-                <img src="{% static 'docente.png' %}" alt="Perfil 3" class="img-fluid mb-3">
-                <button class="btn btn-primary profile-option">Docente
-                    <span class="arrow">→</span>
-                </button>
-            </div>
+
+            {% for perfil in perfiles %}
+                <div class="col text-center">
+                    <img src="{{ perfil.imagen.url }}" alt="Perfil 2" class="img-fluid mb-3">
+                    <form method="post" class="align-items-center">
+                        {% csrf_token %}
+                        {{ perfil.form.nombre }}
+                        <button class="btn btn-primary profile-option">
+                            Ir
+                            <span class="arrow">→</span>
+                        </button>
+                    </form>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </div>

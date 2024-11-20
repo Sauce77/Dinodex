@@ -10,8 +10,10 @@ class LoginForm(AuthenticationForm):
         Se utiliza para generer el form y autenticar
         en la vista login.
     """
-    username = forms.CharField(label="Nombre de usuario", max_length=100)
-    password = forms.CharField(widget=forms.PasswordInput, label="Contraseña")
+    username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
+                               'class': 'form-control w-100'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+                               'class': 'form-control w-100'}))
 
 
 class RegistroForm(UserCreationForm):
@@ -21,7 +23,13 @@ class RegistroForm(UserCreationForm):
     """
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ['first_name', 'last_name', 'email', 'username']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+            'last_name': forms.TextInput(attrs={'class': ' form-control', 'placeholder': 'Apellido'}),
+            'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Correo'}),
+            'username': forms.TextInput(attrs={'class': ' form-control', 'placeholder': 'Usuario'}),
+        }
 
 
 class PerfilForm(forms.ModelForm):
@@ -32,14 +40,8 @@ class PerfilForm(forms.ModelForm):
     """
     class Meta:
         model = Perfil
-        fields = ['id_perfil', 'nombre', 'descripcion']
-        labels = {
-            'id_perfil': 'perfilID',
-            'nombre': 'perfilNombre',
-            'descripcion': 'perfilDescripcion'
-        }
+        fields = ['nombre', 'descripcion']
         widgets = {
-            'id_perfil': forms.HiddenInput(),
-            'nombre': forms.TextInput(attrs={'readonly': True, 'class': ' formPerfil'}),
-            'descripcion': forms.TextInput(attrs={'readonly': True, 'class': ' formPerfil'})
+            'nombre': forms.TextInput(attrs={'readonly': True, 'class': 'text-center bg-transparent profile-option'}),
+            'descripcion': forms.HiddenInput(attrs={'readonly': True, 'class': ' formPerfil'})
         }
