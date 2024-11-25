@@ -79,19 +79,22 @@ def userLogin(request):
             # agregamos los campo en la sesion
             request.session["form_perfil"] = request.POST.dict()
             return redirect('userRegistro')
-    else:
-        form = LoginForm()
-        perfiles = Perfil.objects.filter(visible=True)
 
-        # guardamos los forms para cada perfil
-        form_perfiles = []
-        for obj_perfil in perfiles:
-            # para cada perfil visible
-            # usamos un model form con la info del objeto
-            formulario = PerfilForm(instance=obj_perfil)
-            # agregamos el form a la lista
-            form_perfiles.append(formulario)
-        return render(request, 'userLogin.html', {'form': form, 'perfiles': form_perfiles})
+    # -------------------------------------------------------------
+    # Para renderizar el login
+
+    form = LoginForm()
+    perfiles = Perfil.objects.filter(visible=True)
+
+    # guardamos los forms para cada perfil
+    form_perfiles = []
+    for obj_perfil in perfiles:
+        # para cada perfil visible
+        # usamos un model form con la info del objeto
+        formulario = PerfilForm(instance=obj_perfil)
+        # agregamos el form a la lista
+        form_perfiles.append(formulario)
+    return render(request, 'userLogin.html', {'form': form, 'perfiles': form_perfiles})
 
 
 def userLogout(request):

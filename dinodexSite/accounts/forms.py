@@ -11,9 +11,15 @@ class LoginForm(AuthenticationForm):
         en la vista login.
     """
     username = forms.CharField(max_length=100, widget=forms.TextInput(attrs={
-                               'class': 'form-control w-100'}))
+                               'class': 'form-control w-100'}),
+                               error_messages={
+        'invalid': 'Usuario o contraseña incorrectos.'
+    })
     password = forms.CharField(widget=forms.PasswordInput(attrs={
-                               'class': 'form-control w-100'}))
+                               'class': 'form-control w-100'}),
+                               error_messages={
+        'invalid': 'Usuario o contraseña incorrectos.'
+    })
 
 
 class RegistroForm(UserCreationForm):
