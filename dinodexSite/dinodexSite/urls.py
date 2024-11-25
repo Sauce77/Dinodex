@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('explora/', include('dinoteca.urls')),
     path('editor/', include('editor.urls')),
+    path('foros/', include('foros.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

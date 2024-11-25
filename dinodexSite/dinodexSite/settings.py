@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'dinoteca.apps.DinotecaConfig',
     'editor.apps.EditorConfig',
+    'foros.apps.ForosConfig',
 ]
 
 MIDDLEWARE = [

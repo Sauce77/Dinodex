@@ -9,9 +9,18 @@
         <ul class="navbar-nav">
             <!-- Logo a inicio -->
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'userCatalogo' %}">Home</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'userCatalogo' %}">Inicio</a>
+          </li>
+          <!-- Catalogo de editor -->
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'editorCatalogo' %}">Editor</a>
           </li>
           {% if usuario.is_authenticated %}
+          <!-- Acceso a foros -->
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'forosInicio' %}">Foros</a>
+          </li>
+
           <!-- Si el usuario inicio sesion -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
