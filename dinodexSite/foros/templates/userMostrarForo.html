@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foro</title>
+    {% include '_bootstrap.html'%}
+</head>
+<body>
+    {% include '_navbar.html' %}
+    <div class="container">
+        <h1>{{ foro.nombre }}</h1>
+        <div class="row m-3">
+            <div class="col">
+                <p>{{ foro.descripcion}} </p>
+            </div>
+        </div>
+        <div class="row m-3">
+            <div class="col">
+                <button class="btn btn-info">
+                    <a href="{% url 'userAgregarMensaje' %}" class="text-decoration-none text-light">
+                        Nuevo Mensaje
+                    </a>
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Mostrar mensajes -->
+        {% for mensaje in mensajes %}
+            <div class="row my-3">
+                <div class="col">
+
+                    <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ mensaje.titulo }}</h5>
+                          <p class="card-text">{{ mensaje.mensaje }}</p>
+                          <p class="text-end">De {{ mensaje.usuario.username }}</p>
+                        </div>
+                    </div><!-- para cada mensaje -->
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

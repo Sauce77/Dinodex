@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% include '_bootstrap.html' %}
+</head>
+<body>
+    {% include '_navbar.html' %}
+
+    
+
+    <div class="container">
+        <h1>Seccion de Foros</h1>
+
+        <div class="row my-3">
+            <div class="col text-start">
+                <button class="btn btn-primary">
+                    <a href="{% url 'adminCrearForo' %}" class="text-decoration-none text-light">
+                        Crear Foro
+                    </a>
+                </button>
+            </div>
+            <div class="col text-end">
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="text" name="codigo" placeholder="Codigo de Foro">
+                    <button type="submit" class="btn btn-primary" name="BotonCodigo" value="Registrar">
+                        Registrar
+                    </button>
+                </form>
+            </div>
+        </div><!-- Div registrar a foros-->
+
+        {% for foro in foros %}
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ foro.nombre}}</h5>
+              <p class="card-text">{{ foro.descripcion }}</p>
+              <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name='foro' value="{{ foro.nombre }}">
+                <button type="submit" name="BotonForo" value="Foro" class="btn btn-primary">Ir</button>
+              </form>
+            </div>
+        </div><!-- para cada foro -->
+        {% endfor %}
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Foro</title>
+    {% include '_bootstrap.html' %}
+</head>
+<body>
+    {% include '_navbar.html' %}
+    <div class="container">
+        <h1>Foro Creado !</h1>
+
+        <div class="row m-3">
+            <div class="col">
+                <p> El foro {{ foro.nombre }} ha sido creado exitosamente.
+                    Comparta el codigo siguiente para que mas personas puedan unirse.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="row my-3 mx-auto">
+            <div class="col">
+
+                <div class="card w-50">
+                    <div class="card-body">
+                      <h5 class="card-title">Codigo {{ foro.nombre }}</h5>
+                      <p class="card-text fs-1">{{ foro.codigo }}</p>
+                      <a href="{% url 'forosInicio' %}" class="btn btn-primary">Volver a Foros</a>
+                    </div>
+                  </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
